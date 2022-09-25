@@ -31,7 +31,7 @@ if filter=='Yes':
     st.plotly_chart(fig8)
 
     females=data[data['gender']=='F']
-    fig9=px.scatter(females, x='AnnouncementsView', y='Discussion', size='raisedhands',title='Student Participation Among Girls')
+    fig9=px.scatter(females, x='AnnouncementsView', y='Discussion', size='raisedhands',title='Student Participation Among Girls',color_discrete_sequence='red')
     st.plotly_chart(fig9)
 
 
