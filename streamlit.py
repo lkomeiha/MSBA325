@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 st.title("Loma's App")
 
 
-data=pd.read_csv("/Users/lomakomeiha/Desktop/Data.csv")
+data=pd.read_csv("/Users/lomakomeiha/Documents/GitHub/MSBA325/Data.csv")
 data.rename(columns = {'Class':'Aptitude Level'}, inplace = True)
 
 if st.checkbox('Show raw data'):
