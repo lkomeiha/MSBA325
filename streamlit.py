@@ -24,6 +24,15 @@ if st.checkbox('Show raw data'):
 
 fig = px.scatter(data, x='AnnouncementsView', y='Discussion', size='raisedhands', color='gender',title='Student Participation by Gender')
 st.plotly_chart(fig)
+filter=st.radio('Would you like to filter by gender?',('Yes','No'))
+if filter=='Yes':
+    males=data[data['gender']=='M']
+    fig8=px.scatter(males, x='AnnouncementsView', y='Discussion', size='raisedhands',title='Student Participation Among Boys')
+    st.plotly_chart(fig8)
+
+    females=data[data['gender']=='F']
+    fig9=px.scatter(females, x='AnnouncementsView', y='Discussion', size='raisedhands',title='Student Participation Among Girls')
+    st.plotly_chart(fig9)
 
 
 sub = data[['raisedhands', 'VisITedResources', 'AnnouncementsView', 'Discussion']]
