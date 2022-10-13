@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Sep 22 18:06:50 2022
+Created on Thu Oct 13 19:04:56 2022
 
 @author: lomakomeiha
 """
@@ -14,7 +14,7 @@ import plotly.graph_objects as go
 st.title("Loma's App")
 
 
-data=pd.read_csv("Data.csv")
+data=pd.read_csv("/Users/lomakomeiha/Documents/GitHub/MSBA325/Data.csv")
 data.rename(columns = {'Class':'Aptitude Level'}, inplace = True)
 
 if st.checkbox('Show raw data'):
@@ -22,20 +22,45 @@ if st.checkbox('Show raw data'):
     st.write(data)
     
 
-fig = px.scatter(data, x='AnnouncementsView', y='Discussion', size='raisedhands', color='gender', title='Student Participation by Gender')
+fig = px.scatter(data, x='AnnouncementsView', y='Discussion', size='raisedhands', color='gender',title='Student Participation by Gender')
 st.plotly_chart(fig)
-filter=st.radio('Would you like to filter by gender?',('Yes','No'))
-if filter=='Yes':
-    males=data[data['gender']=='M']
-    fig8=px.scatter(males, x='AnnouncementsView', y='Discussion', size='raisedhands',title='Student Participation Among Boys')
-    st.plotly_chart(fig8)
-
-    females=data[data['gender']=='F']
-    fig9=px.scatter(females, x='AnnouncementsView', y='Discussion', size='raisedhands',title='Student Participation Among Girls',color_discrete_sequence=['red'])
-    st.plotly_chart(fig9)
 
 
-sub = data[['raisedhands', 'VisITedResources', 'AnnouncementsView', 'Discussion']]
+sub=data[[]]
+options= st.multiselect("Which variables would you like to correlate?", ['Raised Hands', 'Visited Resources', 'Announcements View', 'Discussion'])
+if options==['Raised Hands', 'Visited Resources', 'Announcements View', 'Discussion']: 
+    sub = data[['raisedhands', 'VisITedResources', 'AnnouncementsView', 'Discussion']]
+    
+if options==['Raised Hands', 'Visited Resources', 'Announcements View']:
+    sub = data[['raisedhands', 'VisITedResources', 'AnnouncementsView']]
+    
+if options==['Raised Hands', 'Visited Resources','Discussion']:
+    sub = data[['raisedhands', 'VisITedResources','Discussion']]
+    
+if options==['Raised Hands','Announcements View', 'Discussion']:
+    sub = data[['raisedhands','AnnouncementsView', 'Discussion']]
+    
+if options == ['Visited Resources', 'Announcements View', 'Discussion']:
+    sub= data[['VisITedResources', 'AnnouncementsView', 'Discussion']]
+    
+if options == ['Raised Hands', 'Visited Resources']: 
+    sub=data[['raisedhands', 'VisITedResources']]
+    
+if options==['Raised Hands','Announcements View']:
+    sub=data[['raisedhands', 'AnnouncementsView']]
+    
+if options==['Raised Hands', 'Discussion']:
+    sub=data[['raisedhands','Discussion']]
+    
+if options==['Visited Resources', 'Announcements View']: 
+    sub = data[['VisITedResources', 'AnnouncementsView']]
+    
+if options==['Visited Resources','Discussion']: 
+    sub = data[['VisITedResources','Discussion']]
+    
+if options==['Announcements View', 'Discussion']: 
+    sub = data[['AnnouncementsView', 'Discussion']]
+
 corr=sub.corr(method='pearson')
 fig2 = go.Figure(go.Heatmap(z=corr.values.tolist(),
                           x=sub.columns, y=sub.columns, colorscale='rdylgn'))
